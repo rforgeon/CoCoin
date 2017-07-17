@@ -1,0 +1,6 @@
+<%= form_for [@place, @invite] do |f| %>
+    <%= f.hidden_field :place_id, :value => @invite.place_id %>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+    <%= f.submit 'Send' %>
+<% end %>

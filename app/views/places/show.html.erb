@@ -1,0 +1,74 @@
+<h1><%= @place.name %></h1>
+<%= image_tag( @place.link, width: '75%') %>
+<h3>Funds: <%=number_to_currency(@place.total_funds/100)%></h3>
+<small>Monthly Contribution: <%=number_to_currency(@place.contribution/100)%></small>
+
+<p class="lead"><%= @place.description %></p>
+
+<%if current_user%>
+  <%= link_to "Edit Group", edit_place_path, class: 'btn btn-primary' %>
+
+  <%if current_user.is_admin?%>
+    <%= link_to "Delete Group", @place, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this place?' } %>
+  <%end%>
+<%end%>
+
+
+<div style='float:top'>
+  <h3 style="color:grey">Top rated ideas for <%=@place.name%>.👇</h3>
+ <div id="ytplayer"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div>
+      <h3>👍Vote👎 Below or <%= link_to "Add a Post!", new_place_post_path(@place), class: 'btn btn-primary' %></h3>
+    </div>
+    <% @place.posts.each do |post| %>
+      <div class="media">
+        <div style='float:top'>
+          <%= link_to image_tag(post.image, width: '45%'),place_post_path(@place, post) %>
+         </div>
+        <%= render partial: 'votes/voter', locals: { post: post } %>
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= link_to post.title, place_post_path(@place, post) %>
+          </h4>
+          <small>
+            submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
+             <%= pluralize(post.comments.count, 'Comment') %>
+           </small>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="col-md-4">
+    <%= link_to "Add Member", new_place_invite_path(@place), class: 'btn btn-primary' %>
+  </div>
+  <div class="col-md-4">
+    <%=link_to 'Leave Group'.html_safe, place_leave_path(@place), :method => 'post', :remote => true, :class => "btn btn-default btn-sm", data: { confirm: 'Are you sure you want to leave this group? You will need to receive a new invite to re-join.' }, :disable_with => '' %>
+  </div>
+
+  <br>
+  <br>
+  <br>
+</div>
+
+<script>
+
+ // $(document).ready(function(){
+ //
+ //   //Check if the current URL contains '#'
+ //   if(document.URL.indexOf("#")==-1)
+ //   {
+ //   // Set the URL to whatever it was plus "#".
+ //   url = document.URL+"#";
+ //   location = "#";
+ //
+ //   //Reload the page
+ //   location.reload(true);
+ //
+ //   }
+ //   });
+</script>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h3>You're invited to the group</h3> <h1> '"<%= @place.name %>"'</h1>
+    <small>
+      By: <%= @sender.name %>
+    </small>
+    <p>
+      <%= link_to "View Invite", invites_path %>
+    </p>
+  </body>
+</html>

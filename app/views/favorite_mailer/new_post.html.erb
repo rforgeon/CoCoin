@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h3> You will now be updated once new comments are made on <h3>
+    <h1> "<%= @post.title %>"</h1>
+    <small>
+      post created <%= time_ago_in_words(@post.created_at) %>
+    </small>
+    <p>
+      "<%= @post.body.first(20) %> ..."
+    </p>
+    <p>
+      <%= link_to "View entire post on site", place_post_url(@post.place, @post) %>
+    </p>
+  </body>
+</html>

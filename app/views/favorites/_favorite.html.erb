@@ -1,0 +1,9 @@
+<% if favorite = current_user.favorite_for(post) %>
+   <%= link_to [post, favorite], class: 'btn btn-danger', method: :delete do %>
+     <i class="glyphicon glyphicon-star-empty"> </i>&nbsp; Unfollow Post
+   <% end %>
+ <% else %>
+   <%= link_to [post, Favorite.new], class: 'btn btn-primary', method: :post do %>
+     <i class="glyphicon glyphicon-star"> </i>&nbsp; Receive Notificaitons
+   <% end %>
+ <% end %>

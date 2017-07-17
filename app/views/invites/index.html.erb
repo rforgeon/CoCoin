@@ -1,0 +1,39 @@
+<h1>Invites</h1>
+
+
+  <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th>Group</th>
+        <th>Contribution</th>
+        <th>Invited By</th>
+        <th>Sent</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+      <tbody>
+        <% @invites.each_with_index do |invite, index| %>
+        <tr>
+          <td><%=Place.find(invite.place_id).name%></td>
+          <td>$20</td>
+          <td><%=User.find(invite.sender_id).name%></td>
+          <td><%=time_ago_in_words(invite.created_at.to_time)%> ago</td>
+          <%if invite.accepted == nil%>
+            <td>
+              <%=link_to 'Accept'.html_safe, accept_invite_path(:id=>invite.id), :method => 'post', :remote => true, :class => "btn btn-success btn-sm", :disable_with => ''%>
+              <%=link_to 'Decline'.html_safe, decline_invite_path(:id=>invite.id), :method => 'post', :remote => true, :class => "btn btn-default btn-sm", :invite_id => invite.id, :status => false, :disable_with => ''%>
+            </td>
+          <%else%>
+            <%if invite.accepted%>
+              <td>Accepted</td>
+            <%else%>
+              <td>Declined</td>
+            <%end%>
+          <%end%>
+        </tr>
+          <% end %>
+      </tbody>
+
+    </table>
+
+  </div>

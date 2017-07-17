@@ -1,0 +1,8 @@
+New comment to "<%= @post.title %>"
+ <%= "=" * (@post.title.length + 12) %>
+
+ post created <%= time_ago_in_words(@post.created_at) %>
+
+ "<%= @post.body.first(20) %>..."
+
+ Visit online at: <%= place_post_url(@post.place, @post) %>

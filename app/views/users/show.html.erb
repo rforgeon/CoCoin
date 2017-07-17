@@ -1,0 +1,62 @@
+<div>
+  <h1> Hello, <%= @user.name %>!</h1>
+  <%if current_user %>
+  <h4><%= link_to 'Edit Profile',edit_user_registration_path %></h4>
+  <%end%>
+</div>
+<br>
+<div class="row">
+   <div class="col-md-8">
+     <div class="media">
+       <br />
+       <% avatar_url = @user.avatar_url(128) %>
+      <% if avatar_url %>
+         <div class="media-left">
+           <%= image_tag avatar_url, class: 'media-object gravatar' %>
+         </div>
+       <% end %>
+       <div class="media-body">
+         <h2 class="media-heading"><%= @user.name %></h2>
+         <small>
+           <%= pluralize(@user.posts.count, 'post') %>,
+           <%= pluralize(@user.comments.count, 'comment') %>
+           <div>
+             <a target="_blank" href='https://en.gravatar.com/emails/'> Edit Profile Picture</a>
+           </div>
+         </small>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <h2>Posts</h2>
+  <% if @user.posts.count >= 1 %>
+    <%= render @user.posts %>
+  <%else%>
+    <h3 style="color:lightgrey"> <%= "#{@user.name} has not submitted any posts yet."%> </h3>
+  <%end%>
+
+<h2>Favorites</h2>
+  <% if @user.favorites.count >= 1 %>
+    <% @user.favorites.each do |f| %>
+  <div style="float: left">
+    <%= image_tag f.post.user.avatar_url(50), class: 'media-object gravatar' %>
+  </div>
+  <div >
+    <%=render f.post%>
+  </div>
+    <%end%>
+  <%else%>
+    <h3 style="color:lightgrey"> <%= "#{@user.name} does not have any favorite posts yet." %></h3>
+  <%end%>
+
+<h2>Comments</h2>
+  <% if @user.comments.count >= 1 %>
+    <%= render @user.comments %>
+  <%else%>
+    <h3 style="color:lightgrey"> <%= "#{@user.name} has not submitted any comments yet." %></h3>
+  <%end%>
+
+
+
+    <br>
