@@ -1,0 +1,5 @@
+schedule_membership_charge_job:
+  cron: "* * * * *"
+  class: "MembershipChargeJob"
+  queue: default
+  active_job: true

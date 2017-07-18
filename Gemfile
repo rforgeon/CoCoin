@@ -61,7 +61,11 @@ gem 'unicorn'
 #database
 gem 'pg'
 
+#shedule workers
+gem "sidekiq-cron", "~> 0.4.0"
 
+#manage procfile
+gem 'foreman'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
+
   resources :places do
      resources :posts, except: [:index]
      resources :invites, except: [:index]
-     post '/leave' => 'places#leave', as: :leave 
+     post '/leave' => 'places#leave', as: :leave
    end
 
    resources :invites, only: [:index]
@@ -33,7 +34,11 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-
+  authenticate :user, lambda { |u| u.is_admin? } do
+    require 'sidekiq/web'
+    require 'sidekiq/cron/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
